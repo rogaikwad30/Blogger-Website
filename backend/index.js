@@ -25,6 +25,8 @@ app.get("/blog/:id", blogControllers.readBlog);
 app.put("/blog/:id", blogControllers.updateBlog);
 app.delete("/blog/:id", blogControllers.deleteBlog);
 
+app.get("/like/blog/:id", blogControllers.LikeBlog)
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });

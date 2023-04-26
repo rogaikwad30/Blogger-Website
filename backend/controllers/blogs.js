@@ -67,3 +67,41 @@ module.exports.deleteBlog = async (req,res) => {
         })
     }
 }
+
+module.exports.LikeBlog = async (req, res) => {
+  try {
+    const email = req.headers["email"];
+    const blogId = req.params.id;
+
+    const blog = await blogsModel.findById(blogId);
+    if (!blog) {
+      throw new Error(`Blog with ID ${blogId} not found`);
+    }
+
+    const likes = blog.likes;
+    const index = likes.indexOf(email);
+    if (index === -1) {
+      likes.push(email);
+    } else {
+      likes.splice(index, 1);
+    }
+
+    const updatedBlog = await blogsModel.findOneAndUpdate(
+      { _id: blogId },
+      { likes: likes }
+    );
+
+    const updated = await blogsModel.findById(blogId)
+
+    res.status(200).json({
+      status: 200,
+      blog: updated,
+    });
+  } catch (error) {
+    console.error(`Error toggling like: ${error.message}`);
+    res.status(400).json({
+      status: 400,
+      error: error.message,
+    });
+  }
+};
