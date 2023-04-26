@@ -55,6 +55,23 @@ const LikeBlog = (id,token) => {
   return apiCalls.doGetApiCall(url,headers);
 }
 
+const DeleteComment = (id,headers) => {
+  const url = "http://localhost:8000/comment";
+  const req_body = { 
+    "commentId": id
+  }
+  return apiCalls.doDeleteApiCall(url,headers,req_body)
+}
+
+const addComment = (blogId, comment, headers) => {
+  const url  = "http://localhost:8000/comment";
+  const body = {
+    "blogId": blogId,
+    "actualComment": comment
+  }
+  return apiCalls.doPostApiCall(url,body,headers)
+}
+
 const helpers = {
   validateLogin: ValidateLogin,
   getDashboardData: GetDashboardData,
@@ -63,7 +80,9 @@ const helpers = {
   PreviewBlog: PreviewBlog,
   DeleteBlog: DeleteBlog,
   UpdateBlog: UpdateBlog,
-  LikeBlog: LikeBlog
+  LikeBlog: LikeBlog,
+  deleteComment: DeleteComment,
+  addComment: addComment
 };
 
 export default helpers;

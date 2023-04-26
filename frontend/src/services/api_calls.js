@@ -22,9 +22,9 @@ const doPostApiCall = async (url, data, headers={}) => {
   }
 };
 
-const doDeleteApiCall = async (url, headers) => {
+const doDeleteApiCall = async (url, headers, data={}) => {
   try {
-    const response = await axios.delete(url, {headers});
+    const response = await axios.delete(url, {headers,data});
     console.log("Returning delete res - ", response.data);
     return response.data;
   } catch (error) {

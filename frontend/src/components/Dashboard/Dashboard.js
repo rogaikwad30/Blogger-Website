@@ -10,8 +10,10 @@ function Dashboard() {
 
   useEffect(() => {
     helpers.getDashboardData(user.token).then(data => {
-      setBlogsByOtherUsers(data.blogs_by_other_users);
-      setBlogsByMe(data.blogs_by_me);
+      if(data.status === 200){
+        setBlogsByOtherUsers(data.blogs_by_other_users);
+        setBlogsByMe(data.blogs_by_me);
+      }
     });
   }, [user.token]);
 
