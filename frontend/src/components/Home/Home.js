@@ -8,6 +8,7 @@ function Home() {
       <h1>Welcome to my home page!</h1>
       <p>Feel free to explore my website and learn more about me.</p>
       <a href="/dashboard">Move to dashboard</a>
+      <br />
       <Login />
     </div>
   );
