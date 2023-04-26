@@ -31,10 +31,6 @@ const blogSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
-  comments: {
-    type: [commentSchema],
-    default: [],
-  },
   email: {
     type: String,
     required: true,

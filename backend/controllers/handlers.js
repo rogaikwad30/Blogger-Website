@@ -1,6 +1,5 @@
 const userModel = require("../models/User");
 const blogsModel = require("../models/Blog");
-const config = require("../config.json");
 const jwt = require("../services/jwt");
 const dbValidator = require("../services/db-validations");
 
@@ -21,11 +20,13 @@ module.exports.getDashboardData = async (req,res) => {
             }
         ]);          
         res.status(200).json({
+            "status": 200,
             "blogs_by_other_users" : data[0].otherBlogs,
             "blogs_by_me" : data[0].myBlogs
         })
     } catch (error) {
         res.status(400).json({
+            "status": 400,
             "error" : error.message,
             "blogs_by_other_users" : [],
             "blogs_by_me" : []

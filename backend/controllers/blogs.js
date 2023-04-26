@@ -1,5 +1,7 @@
 const blogsModel = require("../models/Blog");
+const commentsModel = require("../models/Comments");
 const dbValidator = require("../services/db-validations");
+const mongoose = require('mongoose');
 
 module.exports.createBlog = async (req,res) => {
     try {
@@ -21,9 +23,43 @@ module.exports.createBlog = async (req,res) => {
 
 module.exports.readBlog = async (req, res) => {
     try {
-        const blog = await blogsModel.findOne({
-            "_id" : req.params.id
-        })
+        const blog = await blogsModel.aggregate([
+            {
+              "$match": {
+                "_id": new mongoose.Types.ObjectId(req.params.id)
+              }
+            },
+            {
+              "$lookup": {
+                "from": "comments",
+                "localField": "_id",
+                "foreignField": "blogId",
+                "as": "comments"
+              }
+            },
+            {
+              "$unwind": {
+                  "path" : "$comments",
+                  "preserveNullAndEmptyArrays": true
+              }
+            },
+            {
+              "$sort": {
+                "comments.updatedAt": -1
+              }
+            },
+            {
+              "$group": {
+                "_id": "$_id",
+                "title": { "$first": "$title" },
+                "likes": { "$first": "$likes" },
+                "body": { "$first": "$body" },
+                "createdAt": { "$first": "$createdAt" },
+                "updatedAt": { "$first": "$updatedAt" },
+                "comments": { "$push": "$comments" }
+              }
+            }
+          ]);
         if(!blog){
             return res.status(400).json({
                 "status" : 400,
@@ -32,7 +68,7 @@ module.exports.readBlog = async (req, res) => {
         }
         res.status(200).json({
             "status" : 200,
-            "blog" : blog
+            "blog" : blog[0]
         })
     } catch (error) {
         res.status(400).json({
@@ -88,12 +124,10 @@ module.exports.LikeBlog = async (req, res) => {
   try {
     const email = req.email;
     const blogId = req.params.id;
-
     const blog = await blogsModel.findById(blogId);
     if (!blog) {
       throw new Error(`Blog with ID ${blogId} not found`);
     }
-
     const likes = blog.likes;
     const index = likes.indexOf(email);
     if (index === -1) {
@@ -101,14 +135,11 @@ module.exports.LikeBlog = async (req, res) => {
     } else {
       likes.splice(index, 1);
     }
-
     const updatedBlog = await blogsModel.findOneAndUpdate(
       { _id: blogId },
       { likes: likes }
     );
-
     const updated = await blogsModel.findById(blogId)
-
     res.status(200).json({
       status: 200,
       blog: updated,
