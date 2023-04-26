@@ -1,5 +1,7 @@
 const userModel = require("../models/User");
 const blogsModel = require("../models/Blog");
+const config = require("../config.json");
+const jwt = require("../services/jwt");
 const dbValidator = require("../services/db-validations");
 
 module.exports.getDashboardData = async (req,res) => {
@@ -8,11 +10,11 @@ module.exports.getDashboardData = async (req,res) => {
             {
               $facet: {
                 myBlogs: [
-                  { $match: { email: req.headers['email']} },
+                  { $match: { email: req.email} },
                   { $sort: { createdAt: -1 } }
                 ],
                 otherBlogs: [
-                  { $match: { email: { $ne: req.headers['email'] } } },
+                  { $match: { email: { $ne: req.email } } },
                   { $sort: { createdAt: -1 } }
                 ]
               }
@@ -37,9 +39,11 @@ module.exports.loginUser = async (req,res) => {
         const user = await userModel.findOne({
             "email" : req.body.email
         })
+        const token = jwt.generateToken(req.body.email)
         if(user){
             res.status(200).json({
                 "message" : "user already exists, please proceed",
+                "token" : token,
                 "status": 200
             })   
         }
@@ -47,6 +51,7 @@ module.exports.loginUser = async (req,res) => {
             await userModel.create(req.body)
             res.status(200).json({
                 "message" : "user registered succesfully",
+                "token" : token,
                 "status": 200
             })  
         }

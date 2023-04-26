@@ -3,6 +3,7 @@ const dbValidator = require("../services/db-validations");
 
 module.exports.createBlog = async (req,res) => {
     try {
+        req.body["email"] = req.email;
         const blog = await blogsModel.create(req.body);
         res.status(200).json({
             "status" : 200,
@@ -20,7 +21,15 @@ module.exports.createBlog = async (req,res) => {
 
 module.exports.readBlog = async (req, res) => {
     try {
-        const blog = await blogsModel.findById(req.params.id)
+        const blog = await blogsModel.findOne({
+            "_id" : req.params.id
+        })
+        if(!blog){
+            return res.status(400).json({
+                "status" : 400,
+                "error" : "No such blog found"
+            })
+        }
         res.status(200).json({
             "status" : 200,
             "blog" : blog
@@ -28,14 +37,17 @@ module.exports.readBlog = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             "status" : 400,
-            "error" : "No Such Blog Found"
+            "error" : error.message
         })
     }
 }
 
 module.exports.updateBlog = async (req,res) => {
     try {
-        const blog = await blogsModel.findByIdAndUpdate(req.params.id,{
+        const blog = await blogsModel.findOneAndUpdate({
+            "_id" : req.params.id,
+            "email": req.email
+        },{
             "$set" : req.body
         });
         
@@ -47,14 +59,18 @@ module.exports.updateBlog = async (req,res) => {
     } catch (error) {
         res.status(400).json({
             "status" : 400,
-            "error" : "No such blog found"
+            "error" : "No such blog found or blog doesn't belongs to you"
         })
     }
 }
 
 module.exports.deleteBlog = async (req,res) => {
     try {
-        const blog = await blogsModel.findByIdAndDelete(req.params.id);
+        const email = req.email;
+        const blog = await blogsModel.findOneAndDelete({
+            "_id" : req.params.id,
+            "email" : email
+        });
         res.status(200).json({
             "status" : 200,
             "message" : "Blog deleted successfully",
@@ -63,14 +79,14 @@ module.exports.deleteBlog = async (req,res) => {
     } catch (error) {
         res.status(400).json({
             "status" : 400,
-            "error" : "No such blog found"
+            "error" : "No such blog found or blog doesn't belongs to you"
         })
     }
 }
 
 module.exports.LikeBlog = async (req, res) => {
   try {
-    const email = req.headers["email"];
+    const email = req.email;
     const blogId = req.params.id;
 
     const blog = await blogsModel.findById(blogId);
