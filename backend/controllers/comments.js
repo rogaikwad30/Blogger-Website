@@ -11,7 +11,8 @@ module.exports.createComment = async (req,res) => {
             res.status(200).json({
                 "status" : 200,
                 "message" : "comment added successfully",
-                "id": comment._id
+                "id": comment._id,
+                "comment": comment
             })
         }
         else{
@@ -48,7 +49,7 @@ module.exports.readCommentsForParticularBlog = async (req, res) => {
 
 module.exports.updateComment = async (req,res) => {
     try {
-        const comment = await commentsModel.findOneAndUpdate({
+        let comment = await commentsModel.findOneAndUpdate({
             "_id" : req.body.commentId,
             "email": req.email
         },{
@@ -56,10 +57,15 @@ module.exports.updateComment = async (req,res) => {
                 "actualComment" : req.body.actualComment
             }
         })
+        comment = await commentsModel.findOne({
+            "_id" : req.body.commentId,
+            "email": req.email
+        })
         if(comment){
             res.status(200).json({
                 "status": 200,
-                "message" : "comment updated successfully"
+                "message" : "comment updated successfully",
+                "comment": comment
             })
         }
         else{

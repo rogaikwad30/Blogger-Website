@@ -9,6 +9,9 @@ const PreviewBlog = (props) => {
   const [newComment, setNewComment] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
   const [commentSubmitError, setCommentSubmitError] = useState(null);
+  const [commentMode, setCommentMode] = useState("view")
+  const [commentId, setCommentId] = useState(null)
+  const [originalComment, setOriginalComment] = useState(null)
 
   useEffect(() => {
     helpers.PreviewBlog(id).then(data => {
@@ -32,13 +35,29 @@ const PreviewBlog = (props) => {
     });
   };
 
+  const changeCommentMode = (id) => {
+    if(commentMode === "view"){
+      setCommentMode("edit")
+      setCommentId(id)
+      for(let i of blog.comments){
+        if(i['_id'] === id){
+          setOriginalComment(i['actualComment'])
+          break;
+        }
+      }
+    }
+    else{
+      setCommentMode("view")
+    }
+  }
+
   const updateComment = (commentId, updatedComment) => {
     helpers.updateComment(commentId, updatedComment, {"access-token": user.token }).then(data => {
       if(data.status === 200){  
         setBlog(prevBlog => {
           const updatedComments = prevBlog.comments.map(comment => {
             if (comment._id === commentId) {
-              return {...comment, actualComment: updatedComment, updatedAt: new Date()}
+              return data.comment;
             } else {
               return comment;
             }
@@ -48,6 +67,7 @@ const PreviewBlog = (props) => {
             comments: updatedComments
           }
         });
+        setCommentMode("view")
       }
     });
   };
@@ -94,7 +114,12 @@ const PreviewBlog = (props) => {
             </li>
             {blog.comments.map((comment) => (
               <li key={comment._id}>
-                <p>{comment.actualComment}</p>
+                {
+                  commentMode === 'edit' && commentId === comment._id? (
+                        <input value={originalComment} onChange={(event) => {setOriginalComment(event.target.value)}}/>
+                  ): <p>{comment.actualComment}</p>
+                }
+               
                 <p>by {comment.email}</p>
                 <p>comment last updated at {comment.updatedAt.toString()}</p>
                 {comment.email === user.email ? (
@@ -102,9 +127,14 @@ const PreviewBlog = (props) => {
                       <button onClick={() => deleteComment(comment._id)}>
                         Delete comment
                       </button>
-                      <button onClick={() => updateComment(comment._id)}>
+                      <button onClick={() => changeCommentMode(comment._id)}>
+                        Pencil
+                      </button>
+                      {commentMode === 'edit'  && commentId === comment._id? (
+                        <button onClick={() => updateComment(comment._id,originalComment)}>
                         Update comment
                       </button>
+                      ):null}
                     </div>
                     ) : null}
               </li>
