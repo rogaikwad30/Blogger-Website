@@ -72,6 +72,15 @@ const addComment = (blogId, comment, headers) => {
   return apiCalls.doPostApiCall(url,body,headers)
 }
 
+const updateComment = (commentId, comment, headers) => {
+  const url  = "http://localhost:8000/comment";
+  const body = {
+    "commentId": commentId,
+    "actualComment": comment
+  }
+  return apiCalls.doPutApiCall(url,body,headers)
+}
+
 const helpers = {
   validateLogin: ValidateLogin,
   getDashboardData: GetDashboardData,
@@ -82,7 +91,8 @@ const helpers = {
   UpdateBlog: UpdateBlog,
   LikeBlog: LikeBlog,
   deleteComment: DeleteComment,
-  addComment: addComment
+  addComment: addComment,
+  updateComment: updateComment
 };
 
 export default helpers;

@@ -32,6 +32,26 @@ const PreviewBlog = (props) => {
     });
   };
 
+  const updateComment = (commentId, updatedComment) => {
+    helpers.updateComment(commentId, updatedComment, {"access-token": user.token }).then(data => {
+      if(data.status === 200){  
+        setBlog(prevBlog => {
+          const updatedComments = prevBlog.comments.map(comment => {
+            if (comment._id === commentId) {
+              return {...comment, actualComment: updatedComment, updatedAt: new Date()}
+            } else {
+              return comment;
+            }
+          });
+          return {
+            ...prevBlog,
+            comments: updatedComments
+          }
+        });
+      }
+    });
+  };
+  
   const handleNewCommentSubmit = (event) => {
     event.preventDefault();
     if(!newComment){
@@ -78,9 +98,14 @@ const PreviewBlog = (props) => {
                 <p>by {comment.email}</p>
                 <p>comment last updated at {comment.updatedAt.toString()}</p>
                 {comment.email === user.email ? (
-                    <button onClick={() => deleteComment(comment._id)}>
-                      Delete comment
-                    </button>
+                    <div>
+                      <button onClick={() => deleteComment(comment._id)}>
+                        Delete comment
+                      </button>
+                      <button onClick={() => updateComment(comment._id)}>
+                        Update comment
+                      </button>
+                    </div>
                     ) : null}
               </li>
             ))}
@@ -89,11 +114,9 @@ const PreviewBlog = (props) => {
           <p>blog updated at {blog.updatedAt.toString()}</p>
         </div>
       );
+  } else {
+    return <p>Loading blog...</p>
   }
-  return (
-    <div>
-    </div>
-  );
-};
+}
 
 export default PreviewBlog;
