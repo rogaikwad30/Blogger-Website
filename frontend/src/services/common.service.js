@@ -47,6 +47,14 @@ const UpdateBlog = (id,data) => {
   return apiCalls.doPutApiCall(url,data);
 }
 
+const LikeBlog = (id,email) => {
+  const headers = {
+    email: email
+  }
+  const url = 'http://localhost:8000/like/blog/'+id;
+  return apiCalls.doGetApiCall(url,headers);
+}
+
 const helpers = {
   validateLogin: ValidateLogin,
   getDashboardData: GetDashboardData,
@@ -54,7 +62,8 @@ const helpers = {
   addNewBlog: AddNewBlog,
   PreviewBlog: PreviewBlog,
   DeleteBlog: DeleteBlog,
-  UpdateBlog: UpdateBlog
+  UpdateBlog: UpdateBlog,
+  LikeBlog: LikeBlog
 };
 
 export default helpers;
