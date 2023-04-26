@@ -9,26 +9,31 @@ function Dashboard() {
   const [blogsByMe, setBlogsByMe] = useState([]);
 
   useEffect(() => {
-    helpers.getDashboardData(user.email).then(data => {
+    helpers.getDashboardData(user.token).then(data => {
       setBlogsByOtherUsers(data.blogs_by_other_users);
       setBlogsByMe(data.blogs_by_me);
     });
-  }, [user.email]);
+  }, [user.token]);
 
   const DeleteBlog = async (id) => {
     try {
-      await helpers.DeleteBlog(id)
-      setBlogsByMe(blogsByMe.filter((blog) => {
-        return blog._id !== id
-      }))
+      const headers = {
+        "access-token": user.token
+      }
+      const resp = await helpers.DeleteBlog(id, headers);
+      if(resp.status === 200){
+        setBlogsByMe(blogsByMe.filter((blog) => {
+          return blog._id !== id
+        }))
+      }
     } catch (error) {
       console.log("Error Deleting - ",error);
     }
   }
 
-  const LikeBlog = async (id,email) => {
+  const LikeBlog = async (id) => {
     try {
-      const resp = await helpers.LikeBlog(id,email)
+      const resp = await helpers.LikeBlog(id,user.token)
       if(resp.status === 200){        
         const data = [];
         for(let i of blogsByOtherUsers){
@@ -57,7 +62,7 @@ function Dashboard() {
               <li>{blog.title}</li>
             </a>
             <a style={{"margin":"10px"}} href={"/blog/" + blog._id + "/preview"}>preview</a>
-            <button onClick={() => LikeBlog(blog._id,user.email)}>Like - {blog.likes.length}</button>
+            <button onClick={() => LikeBlog(blog._id)}>Like - {blog.likes.length}</button>
           </div>
         ))}
       </ul>

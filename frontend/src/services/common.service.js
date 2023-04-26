@@ -8,16 +8,16 @@ const ValidateLogin = () => {
   const navigate = useNavigate();
   console.log("Validating user login at ui - ", user);
   useEffect(() => {
-    if (!user.isLoggedIn) {
+    if (!user.isLoggedIn || !user.token) {
       navigate("/");
     }
-  }, [navigate, user.isLoggedIn]);
+  }, [navigate, user.isLoggedIn, user.token]);
 };
 
-const GetDashboardData = (email) => {
+const GetDashboardData = (token) => {
   const url = 'http://localhost:8000/dashboard-data';
   const headers = {
-    "email" : email
+    "access-token" : token
   }
   return apiCalls.doGetApiCall(url,headers)
 };
@@ -27,9 +27,9 @@ const postGoogleDataToRegisterUser = (requestBody) => {
   return apiCalls.doPostApiCall(url, requestBody)
 }
 
-const AddNewBlog = (requestBody) => {
+const AddNewBlog = (requestBody, headers) => {
   const url = 'http://localhost:8000/blog';
-  return apiCalls.doPostApiCall(url, requestBody)
+  return apiCalls.doPostApiCall(url, requestBody, headers)
 }
 
 const PreviewBlog = (id) => {
@@ -37,19 +37,19 @@ const PreviewBlog = (id) => {
   return apiCalls.doGetApiCall(url);
 }
 
-const DeleteBlog = (id) => {
+const DeleteBlog = (id, headers) => {
   const url = 'http://localhost:8000/blog/'+id;
-  return apiCalls.doDeleteApiCall(url);
+  return apiCalls.doDeleteApiCall(url, headers);
 }
 
-const UpdateBlog = (id,data) => {
+const UpdateBlog = (id,data, headers) => {
   const url = 'http://localhost:8000/blog/'+id;
-  return apiCalls.doPutApiCall(url,data);
+  return apiCalls.doPutApiCall(url,data,headers);
 }
 
-const LikeBlog = (id,email) => {
+const LikeBlog = (id,token) => {
   const headers = {
-    email: email
+    "access-token" : token
   }
   const url = 'http://localhost:8000/like/blog/'+id;
   return apiCalls.doGetApiCall(url,headers);

@@ -39,7 +39,7 @@ const EditBlog = (props) => {
     e.preventDefault();
     try {
       setmessage('')
-        const blog = await helpers.UpdateBlog(id,blogData)
+        const blog = await helpers.UpdateBlog(id,blogData,{"access-token": user.token})
         setmessage(blog.message)
     } catch (err) {
       console.error("Failed to update blog", err);

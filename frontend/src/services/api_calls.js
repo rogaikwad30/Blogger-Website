@@ -11,9 +11,9 @@ const doGetApiCall = async (url, headers={}) => {
   }
 };
 
-const doPostApiCall = async (url, data) => {
+const doPostApiCall = async (url, data, headers={}) => {
   try {
-    const response = await axios.post(url, data);
+    const response = await axios.post(url, data, { headers });
     console.log("Returning post res - ", response.data);
     return response.data;
   } catch (error) {
@@ -22,9 +22,9 @@ const doPostApiCall = async (url, data) => {
   }
 };
 
-const doDeleteApiCall = async (url) => {
+const doDeleteApiCall = async (url, headers) => {
   try {
-    const response = await axios.delete(url);
+    const response = await axios.delete(url, {headers});
     console.log("Returning delete res - ", response.data);
     return response.data;
   } catch (error) {

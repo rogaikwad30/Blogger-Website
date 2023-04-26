@@ -11,9 +11,11 @@ function Login() {
   const successHandler = async (response) => {
     const { name, email, googleId } = response.profileObj;
     console.log("Google Login Response - ",name, email, googleId, response);
-    dispatch(setUserLogin({ name, email, googleId }));
+    
     const loginResponse = await helpers.postGoogleDataToRegisterUser({name,email,googleId})
     if(loginResponse.status === 200){
+      const token = loginResponse.token;
+      dispatch(setUserLogin({ name, email, googleId, token}));
       navigate('/dashboard');
     }
     else{

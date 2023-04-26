@@ -25,7 +25,7 @@ const AddNewBlog = () => {
     e.preventDefault();
     try {
       setmessage('')
-      const blog = await helpers.addNewBlog(blogData)
+      const blog = await helpers.addNewBlog(blogData,{"access-token": user.token})
       setmessage(blog.message)
       setBlogData({
         title: "",
