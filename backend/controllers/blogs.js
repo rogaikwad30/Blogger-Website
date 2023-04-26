@@ -51,6 +51,8 @@ module.exports.readBlog = async (req, res) => {
             {
               "$group": {
                 "_id": "$_id",
+                "email": { "$first":  "$email" },
+                "imgUrl": { "$first": "$imgUrl"},
                 "title": { "$first": "$title" },
                 "likes": { "$first": "$likes" },
                 "body": { "$first": "$body" },
