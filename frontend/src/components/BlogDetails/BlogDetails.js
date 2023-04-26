@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import helpers from '../../services/common.service';
 import AddNewBlog from './AddNewBlog';
 import PreviewBlog from './PreviewBlog';
+import EditBlog from './EditBlog';
 
 function BlogDetails() {
   helpers.validateLogin();
@@ -19,7 +20,11 @@ function BlogDetails() {
   }
   else{
     if(mode === "edit"){
-
+      return (
+        <>
+          <EditBlog id={id}/>
+        </>
+      )
     }
     else if(mode === "preview"){
       return (

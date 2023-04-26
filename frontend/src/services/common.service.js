@@ -37,12 +37,24 @@ const PreviewBlog = (id) => {
   return apiCalls.doGetApiCall(url);
 }
 
+const DeleteBlog = (id) => {
+  const url = 'http://localhost:8000/blog/'+id;
+  return apiCalls.doDeleteApiCall(url);
+}
+
+const UpdateBlog = (id,data) => {
+  const url = 'http://localhost:8000/blog/'+id;
+  return apiCalls.doPutApiCall(url,data);
+}
+
 const helpers = {
   validateLogin: ValidateLogin,
   getDashboardData: GetDashboardData,
   postGoogleDataToRegisterUser: postGoogleDataToRegisterUser,
   addNewBlog: AddNewBlog,
-  PreviewBlog: PreviewBlog
+  PreviewBlog: PreviewBlog,
+  DeleteBlog: DeleteBlog,
+  UpdateBlog: UpdateBlog
 };
 
 export default helpers;

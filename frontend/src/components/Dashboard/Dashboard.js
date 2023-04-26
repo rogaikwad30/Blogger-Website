@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
 import helpers from '../../services/common.service';
 import { useSelector } from "react-redux";
 
@@ -8,6 +7,13 @@ function Dashboard() {
   const user = useSelector((state) => state.user);
   const [blogsByOtherUsers, setBlogsByOtherUsers] = useState([]);
   const [blogsByMe, setBlogsByMe] = useState([]);
+  
+  const FetchData = () => {
+    helpers.getDashboardData(user.email).then(data => {
+      setBlogsByOtherUsers(data.blogs_by_other_users);
+      setBlogsByMe(data.blogs_by_me);
+    });
+  }
 
   useEffect(() => {
     helpers.getDashboardData(user.email).then(data => {
@@ -15,6 +21,18 @@ function Dashboard() {
       setBlogsByMe(data.blogs_by_me);
     });
   }, [user.email]);
+
+  const DeleteBlog = async (id) => {
+    try {
+      const resp = await helpers.DeleteBlog(id)
+      setBlogsByMe(blogsByMe.filter((blog) => {
+        return blog._id !== id
+      }))
+      FetchData()
+    } catch (error) {
+      console.log("Error Deleting - ",error);
+    }
+  }
 
   return (
     <div>
@@ -42,7 +60,7 @@ function Dashboard() {
             </a>
             <a style={{"margin":"10px"}} href={"/blog/" + blog._id + "/preview"}>preview</a>
             <a style={{"margin":"10px"}} href={"/blog/" + blog._id + "/edit"}>edit</a>
-            <button style={{"margin":"10px"}}>delete</button>
+            <button style={{"margin":"10px"}} onClick={() => DeleteBlog(blog._id)}>delete</button>
           </div>
         ))}
       </ul>
