@@ -38,6 +38,7 @@ module.exports.updateBlog = async (req,res) => {
         const blog = await blogsModel.findByIdAndUpdate(req.params.id,{
             "$set" : req.body
         });
+        
         res.status(200).json({
             "status" : 200,
             "message" : "Blog updated successfully",
