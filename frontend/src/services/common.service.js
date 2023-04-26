@@ -14,9 +14,12 @@ const ValidateLogin = () => {
   }, [navigate, user.isLoggedIn]);
 };
 
-const getDashboardData = () => {
+const GetDashboardData = (email) => {
   const url = 'http://localhost:8000/dashboard-data';
-  return apiCalls.doGetApiCall(url)
+  const headers = {
+    "email" : email
+  }
+  return apiCalls.doGetApiCall(url,headers)
 };
 
 const postGoogleDataToRegisterUser = (requestBody) => {
@@ -24,10 +27,16 @@ const postGoogleDataToRegisterUser = (requestBody) => {
   return apiCalls.doPostApiCall(url, requestBody)
 }
 
+const AddNewBlog = (requestBody) => {
+  const url = 'http://localhost:8000/blog';
+  return apiCalls.doPostApiCall(url, requestBody)
+}
+
 const helpers = {
   validateLogin: ValidateLogin,
-  getDashboardData: getDashboardData,
-  postGoogleDataToRegisterUser: postGoogleDataToRegisterUser
+  getDashboardData: GetDashboardData,
+  postGoogleDataToRegisterUser: postGoogleDataToRegisterUser,
+  addNewBlog: AddNewBlog
 };
 
 export default helpers;

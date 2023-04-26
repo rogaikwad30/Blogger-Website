@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const doGetApiCall = async (url) => {
+const doGetApiCall = async (url, headers={}) => {
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(url, { headers });
     console.log("Returning - ", response.data);
     return response.data;
   } catch (error) {
