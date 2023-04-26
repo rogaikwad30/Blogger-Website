@@ -1,5 +1,4 @@
 const blogsModel = require("../models/Blog");
-const commentsModel = require("../models/Comments");
 const dbValidator = require("../services/db-validations");
 const mongoose = require('mongoose');
 
