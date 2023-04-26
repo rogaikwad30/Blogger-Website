@@ -22,7 +22,12 @@ function Dashboard() {
       <h2>Blogs by other users:</h2>
       <ul>
         {blogsByOtherUsers.map(blog => (
-          <li key={blog._id}>{blog.title}</li>
+          <div key={blog._id}>
+            <a href={"/blog/" + blog._id + "/preview"}>
+              <li>{blog.title}</li>
+            </a>
+            <a style={{"margin":"10px"}} href={"/blog/" + blog._id + "/preview"}>preview</a>
+          </div>
         ))}
       </ul>
       <h2>My blogs:</h2>
@@ -31,7 +36,14 @@ function Dashboard() {
       </button>
       <ul>
         {blogsByMe.map(blog => (
-          <li key={blog._id}>{blog.title}</li>
+          <div key={blog._id}>
+            <a href={"/blog/" + blog._id + "/preview"}>
+              <li>{blog.title}</li>
+            </a>
+            <a style={{"margin":"10px"}} href={"/blog/" + blog._id + "/preview"}>preview</a>
+            <a style={{"margin":"10px"}} href={"/blog/" + blog._id + "/edit"}>edit</a>
+            <button style={{"margin":"10px"}}>delete</button>
+          </div>
         ))}
       </ul>
     </div>

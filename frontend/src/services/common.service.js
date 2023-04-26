@@ -32,11 +32,17 @@ const AddNewBlog = (requestBody) => {
   return apiCalls.doPostApiCall(url, requestBody)
 }
 
+const PreviewBlog = (id) => {
+  const url = 'http://localhost:8000/blog/'+id;
+  return apiCalls.doGetApiCall(url);
+}
+
 const helpers = {
   validateLogin: ValidateLogin,
   getDashboardData: GetDashboardData,
   postGoogleDataToRegisterUser: postGoogleDataToRegisterUser,
-  addNewBlog: AddNewBlog
+  addNewBlog: AddNewBlog,
+  PreviewBlog: PreviewBlog
 };
 
 export default helpers;

@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import helpers from '../../services/common.service';
 import AddNewBlog from './AddNewBlog';
+import PreviewBlog from './PreviewBlog';
 
 function BlogDetails() {
   helpers.validateLogin();
@@ -21,7 +22,11 @@ function BlogDetails() {
 
     }
     else if(mode === "preview"){
-      
+      return (
+        <>  
+          <PreviewBlog id={id}></PreviewBlog>
+        </>
+      ) 
     }
     else{
       return (
