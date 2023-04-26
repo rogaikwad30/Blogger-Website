@@ -16,8 +16,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
-app.get("/dashboard-data",controllers.getDashboardData)
-app.post("/login",controllers.loginUser)
+app.get("/dashboard-data",controllers.getDashboardData);
+app.post("/login",controllers.loginUser);
+app.post("/blog",controllers.addBlog)
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
