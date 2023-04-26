@@ -58,19 +58,3 @@ module.exports.loginUser = async (req,res) => {
         })
     }
 }
-
-module.exports.addBlog = async (req,res) => {
-    try {
-        const blog = await blogsModel.create(req.body);
-        res.status(200).json({
-            "status" : 200,
-            "message" : "Blog added successfully"
-        })
-    } catch (error) {
-        const errors = dbValidator.checkErrors(error)
-        res.status(400).json({
-            "status" : 400,
-            "error" : errors
-        })
-    }
-}
