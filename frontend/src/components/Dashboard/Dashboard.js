@@ -1,19 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom';
+import helpers from '../../services/common.service';
 
 function Dashboard() {
-  const user = useSelector((state) => state.user);
-  console.log("Is user Logged In Dahsb- ",user);
+  helpers.validateLogin();
+
+  const [blogsByOtherUsers, setBlogsByOtherUsers] = useState([]);
+  const [blogsByMe, setBlogsByMe] = useState([]);
+
+  useEffect(() => {
+    helpers.getDashboardData().then(data => {
+      setBlogsByOtherUsers(data.blogs_by_other_users);
+      setBlogsByMe(data.blogs_by_me);
+    });
+  }, []);
 
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
+      <h2>Blogs by other users:</h2>
       <ul>
-        <li><Link to="/blog/1">Blog post 1</Link></li>
-        <li><Link to="/blog/2">Blog post 2</Link></li>
-        <li><Link to="/blog/3">Blog post 3</Link></li>
+        {blogsByOtherUsers.map(blog => (
+          <li key={blog.title}>{blog.title}</li>
+        ))}
+      </ul>
+      <h2>My blogs:</h2>
+      <button>
+        <a href="/blog/new">Add New blog</a>
+      </button>
+      <ul>
+        {blogsByMe.map(blog => (
+          <li key={blog.title}>{blog.title}</li>
+        ))}
       </ul>
     </div>
   );

@@ -1,20 +1,24 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
 import { setUserLogin } from '../../redux-store/store';
 import { useNavigate } from 'react-router-dom';
+import helpers from '../../services/common.service';
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  console.log("Is user Logged In - ",user);
-  
 
-  const successHandler = (response) => {
+  const successHandler = async (response) => {
     const { name, email, googleId } = response.profileObj;
     console.log("Google Login Response - ",name, email, googleId, response);
     dispatch(setUserLogin({ name, email, googleId }));
-    navigate('/dashboard');
+    const loginResponse = await helpers.postGoogleDataToRegisterUser({name,email,googleId})
+    if(loginResponse.status === 200){
+      navigate('/dashboard');
+    }
+    else{
+      console.log("Logged in fail from our backend i.e.. nodejs - ", loginResponse);
+    }
   };
 
   const errorHandler = (error) => {
