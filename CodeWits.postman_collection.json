@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "c564475a-6ace-4db4-a4b8-3b527be49137",
+		"name": "CodeWits",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13416038"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"rogaikwad301@gmail.com\",\r\n    \"name\" : \"Rohan\",\r\n    \"googleId\" : 23\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-dashboard-data",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjIyODQsImV4cCI6MTY4MjUyNTg4NH0.RaLl8h-uuOPAI9dboMaV0Wb0e-1N5xzOLsFPMHGQ4F0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/dashboard-data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"dashboard-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-blog",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1Mjk1MTAsImV4cCI6MTY4MjUzMzExMH0.d4-TeKv3R9TP3PWl6Jx0M-J20JWHR7Vm59Jn93UTgoE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"rogaikwad30\",\r\n    \"body\": \"Hi First Blog\",\r\n    \"imgUrl\": \"https://play-lh.googleusercontent.com/PAgEDMao5gLi5N-9x-EdPIihJHe0CRqscma-BQPunQoV887HW58Wi8ccdAtU2UwBnwo\",\r\n    \"title\": \"First Blog\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/blog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"blog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read-blog",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"body\": \"Hi First Blog\",\r\n    \"imgUrl\": \"https://play-lh.googleusercontent.com/PAgEDMao5gLi5N-9x-EdPIihJHe0CRqscma-BQPunQoV887HW58Wi8ccdAtU2UwBnwo\",\r\n    \"title\": \"First Blog\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/blog/64495d14705cfbb76d18482d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"blog",
+						"64495d14705cfbb76d18482d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-blog",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjIyODQsImV4cCI6MTY4MjUyNTg4NH0.RaLl8h-uuOPAI9dboMaV0Wb0e-1N5xzOLsFPMHGQ4F0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"64491f15736deeac9b9a10d6\",\r\n    \"body\" : \"Updated body\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/blog/64491f15736deeac9b9a10d6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"blog",
+						"64491f15736deeac9b9a10d6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-blog",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjIyODQsImV4cCI6MTY4MjUyNTg4NH0.RaLl8h-uuOPAI9dboMaV0Wb0e-1N5xzOLsFPMHGQ4F0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"rogaikwad30\",\r\n    \"body\": \"Hi First Blog\",\r\n    \"imgUrl\": \"https://play-lh.googleusercontent.com/PAgEDMao5gLi5N-9x-EdPIihJHe0CRqscma-BQPunQoV887HW58Wi8ccdAtU2UwBnwo\",\r\n    \"title\": \"First Blog\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/blog/644943e0824700e556d5d51f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"blog",
+						"644943e0824700e556d5d51f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "like-blog",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjIyODQsImV4cCI6MTY4MjUyNTg4NH0.RaLl8h-uuOPAI9dboMaV0Wb0e-1N5xzOLsFPMHGQ4F0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"rogaikwad30\",\r\n    \"body\": \"Hi First Blog\",\r\n    \"imgUrl\": \"https://play-lh.googleusercontent.com/PAgEDMao5gLi5N-9x-EdPIihJHe0CRqscma-BQPunQoV887HW58Wi8ccdAtU2UwBnwo\",\r\n    \"title\": \"First Blog\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/like/blog/64494917cc2a14a1c237d6de",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"like",
+						"blog",
+						"64494917cc2a14a1c237d6de"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1Mjk1MTAsImV4cCI6MTY4MjUzMzExMH0.d4-TeKv3R9TP3PWl6Jx0M-J20JWHR7Vm59Jn93UTgoE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"blogId\": \"64495d14705cfbb76d18482d\",\r\n    \"actualComment\" : \"Hi This blog is great\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-comment",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1Mjk1MTAsImV4cCI6MTY4MjUzMzExMH0.d4-TeKv3R9TP3PWl6Jx0M-J20JWHR7Vm59Jn93UTgoE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"commentId\": \"64495d638210e2027374d8ec\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-comment",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1Mjk1MTAsImV4cCI6MTY4MjUzMzExMH0.d4-TeKv3R9TP3PWl6Jx0M-J20JWHR7Vm59Jn93UTgoE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"commentId\": \"6449678b5d69a806e85c1923\",\r\n    \"actualComment\" : \"comment updated\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-comments-for-blog",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvZ2Fpa3dhZDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1Mjk1MTAsImV4cCI6MTY4MjUzMzExMH0.d4-TeKv3R9TP3PWl6Jx0M-J20JWHR7Vm59Jn93UTgoE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"blogId\": \"64495d14705cfbb76d18482d\",\r\n    \"actualComment\" : \"Hi This blog is great\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/get-comment-for-blog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"get-comment-for-blog"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
