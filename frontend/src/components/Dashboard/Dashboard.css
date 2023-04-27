@@ -79,6 +79,7 @@ h1 strong{
   height: 110%;
   background: linear-gradient(to bottom, #000000, #333333);
 } */
+
 .card__one .card__bg {
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/62105/3dr_monobg.jpg") center/cover no-repeat;
 }
