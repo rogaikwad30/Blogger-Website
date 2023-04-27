@@ -51,6 +51,7 @@ h1 strong{
   width: 275px;
   display: inline-block;
   text-align: center;
+  margin: 10px auto;
 }
 .card:not(:last-child) {
   margin-right: 30px;
@@ -72,12 +73,12 @@ h1 strong{
   z-index: 0;
 }
 
-.card__one .card__img {
+/* .card__one .card__img {
   top: 14px;
   right: -10px;
   height: 110%;
   background: linear-gradient(to bottom, #000000, #333333);
-}
+} */
 .card__one .card__bg {
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/62105/3dr_monobg.jpg") center/cover no-repeat;
 }

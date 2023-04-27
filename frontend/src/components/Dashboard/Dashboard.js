@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import helpers from "../../services/common.service";
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
@@ -75,7 +75,7 @@ function Dashboard() {
       {blogsByOtherUsers.map((blog) => (
         <div key={Blob._id} className="card card__one">
           <div className="card__bg"></div>
-          <img className="card__img" src={blog.imgUrl} />
+          <img height="100%" width="100%" alt={blog.title + "source"}  className="card__img" src={blog.imgUrl} />
           <div className="card__text">
           <a href={"/blog/" + blog._id + "/preview"}>
           <p className="card__title">{blog.title}</p>
@@ -95,9 +95,9 @@ function Dashboard() {
       <h2>My Blogs,</h2>
 
       {blogsByMe.map((blog) => (
-        <div key={Blob._id} className="card card__one">
+        <div key={blog._id} className="card card__one">
           <div className="card__bg"></div>
-          <img className="card__img" src={blog.imgUrl} />
+          <img alt={"blog cover link"} className="card__img" src={blog.imgUrl} />
           <div className="card__text">
           <a href={"/blog/" + blog._id + "/preview"}>
           <p className="card__title">{blog.title}</p>
