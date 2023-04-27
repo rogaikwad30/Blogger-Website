@@ -47,10 +47,22 @@ const EditBlog = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title:</label>
+    <div className="cards">
+      <h1>
+        Howdy, <strong>{user.name.split(" ")[0]}!</strong>
+      </h1>
+      <section>
+        <a className="new_blog" href="/dashboard">
+          Dashboard
+        </a>
+      </section>
+      <h2>Create a new Blog</h2>
+
+      <form className="newBlogForm" onSubmit={handleSubmit}>
+        <label>{message}</label>
+        <label>Blog Title:</label>
         <input
+          placeholder="Enter the title of your blog post"
           type="text"
           id="title"
           name="title"
@@ -58,10 +70,10 @@ const EditBlog = (props) => {
           onChange={handleInputChange}
           required
         />
-      </div>
-      <div>
-        <label htmlFor="imgUrl">Image URL:</label>
+
+        <label>Cover Image Link:</label>
         <input
+          placeholder="Enter the URL of your cover image"
           type="text"
           id="imgUrl"
           name="imgUrl"
@@ -69,21 +81,21 @@ const EditBlog = (props) => {
           onChange={handleInputChange}
           required
         />
-      </div>
-      <div>
-        <label htmlFor="body">Body:</label>
+
+        <label>Blog Body:</label>
         <textarea
+          rows="10"
+          placeholder="Enter the body of your blog post"
           id="body"
           name="body"
           value={blogData.body}
           onChange={handleInputChange}
           required
         ></textarea>
-      </div>
-      <h6>{message}</h6>
-      <button type="submit">Update</button>
-      <a href="/dashboard">Move to dashboard</a>
-    </form>
+
+        <button type="submit">Update</button>
+      </form>
+    </div>
   );
 };
 

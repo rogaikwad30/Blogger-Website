@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import helpers from "../../services/common.service";
 import { useSelector } from "react-redux";
-import Glide from "@glidejs/glide";
-import "@glidejs/glide/dist/css/glide.core.min.css";
-import "@glidejs/glide/dist/css/glide.theme.min.css";
-
+import { useDispatch } from 'react-redux';
 import "./Dashboard.css";
+import { setUserLogout } from '../../redux-store/store';
 
 function Dashboard() {
   helpers.validateLogin();
-  const carouselRef = useRef(null);
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
   const [blogsByOtherUsers, setBlogsByOtherUsers] = useState([]);
   const [blogsByMe, setBlogsByMe] = useState([]);
@@ -19,21 +18,6 @@ function Dashboard() {
       if (data.status === 200) {
         setBlogsByOtherUsers(data.blogs_by_other_users);
         setBlogsByMe(data.blogs_by_me);
-      }
-      if (carouselRef.current) {
-        new Glide(carouselRef.current, {
-          type: "carousel",
-          perView: 3,
-          gap: 20,
-          breakpoints: {
-            768: {
-              perView: 2,
-            },
-            576: {
-              perView: 1,
-            },
-          },
-        }).mount();
       }
     });
   }, [user.token]);
@@ -75,108 +59,55 @@ function Dashboard() {
     }
   };
 
+  const LogOut = () => {
+    dispatch(setUserLogout());
+  }
+
   return (
-    <div className="row">
-      <h1 className="title">Howdy, {user.name}!</h1>
-      <h2>Checkout Latest Blogs by your peers,</h2>
+    <div className="cards">
+      <h1>Howdy, <strong>{user.name.split(" ")[0]}!</strong></h1>
+      <section>
+        <a className="new_blog" href="/blog/new/edit">Create a New Blog</a>
+        <a className="logout"  onClick={() => LogOut()} href="/">Logout</a>
+      </section>
+      <h2>Checkout Blogs by your peers,</h2>
+
       {blogsByOtherUsers.map((blog) => (
-        <div key={blog._id} className="example-2 card">
-          <div
-            className="wrapper"
-            style={{ backgroundImage: `url(${blog.imgUrl})` }}
-          >
-            <div className="header">
-              <div className="date">
-                <span className="day">{blog.updatedAt.split("T")[0]}</span>
-                {/* <span className="month">Aug</span>
-          <span className="year">2016</span> */}
-              </div>
-              <ul className="menu-content">
-                <li>
-                  <a href="#" className="fa fa-bookmark-o"></a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    onClick={() => LikeBlog(blog._id)}
-                    className="fa fa-thumbs-up"
-                  >
-                    <span>{blog.likes.length}</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={"/blog/" + blog._id + "/preview"}
-                    className="fa fa-comment"
-                  >
-                    <span>Click</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="data">
-              <div className="content">
-                <span className="author">{blog.email}</span>
-                <h2 className="title">
-                  <a href={"/blog/" + blog._id + "/preview"}>{blog.title}</a>
-                </h2>
-                <p className="text">{blog.title}</p>
-                <a href={"/blog/" + blog._id + "/preview"} className="button">
-                  Read more
-                </a>
-              </div>
-            </div>
+        <div key={Blob._id} className="card card__one">
+          <div className="card__bg"></div>
+          <img className="card__img" src={blog.imgUrl} />
+          <div className="card__text">
+          <a href={"/blog/" + blog._id + "/preview"}>
+          <p className="card__title">{blog.title}</p>
+          </a>
+          <div className="card_buttons" onClick={() => LikeBlog(blog._id)}>
+            <i class="fa-regular fa-heart"></i>
+            <br></br>
+            {blog.likes.length}
+          </div>
+         
           </div>
         </div>
       ))}
 
-      <h2>Checkout your own blogs : </h2>
+      <br></br>
+      <br></br>
+      <h2>My Blogs,</h2>
+
       {blogsByMe.map((blog) => (
-        <div key={blog._id} className="example-2 card">
-          <div
-            className="wrapper"
-            style={{ backgroundImage: `url(${blog.imgUrl})` }}
-          >
-            <div className="header">
-              <div className="date">
-                <span className="day">{blog.updatedAt.split("T")[0]}</span>
-                {/* <span className="month">Aug</span>
-          <span className="year">2016</span> */}
-              </div>
-              <ul className="menu-content">
-                <li>
-                  {/* <a href="#" className="fa fa-bookmark-o"></a> */}
-                </li>
-                <li>
-                  <p
-                    onClick={() => DeleteBlog(blog._id)}
-                    className="fa fa-trash"
-                  >
-                    <span>{blog.likes.length}</span>
-                  </p>
-                </li>
-                <li>
-                  <a
-                    href={"/blog/" + blog._id + "/edit"}
-                    className="fa fa-pen"
-                  >
-                    <span></span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="data">
-              <div className="content">
-                <span className="author">{blog.email}</span>
-                <h2 className="title">
-                  <a href={"/blog/" + blog._id + "/preview"}>{blog.title}</a>
-                </h2>
-                <p className="text">{blog.title}</p>
-                <a href={"/blog/" + blog._id + "/preview"} className="button">
-                  Read more
-                </a>
-              </div>
-            </div>
+        <div key={Blob._id} className="card card__one">
+          <div className="card__bg"></div>
+          <img className="card__img" src={blog.imgUrl} />
+          <div className="card__text">
+          <a href={"/blog/" + blog._id + "/preview"}>
+          <p className="card__title">{blog.title}</p>
+          </a>
+          <div className="card_buttons2">
+            <i class="fa-regular fa-heart"></i>
+            <a href={"/blog/" + blog._id + "/edit"}> <i class="fa-regular fa-edit" ></i></a>
+            <i  onClick={() => DeleteBlog(blog._id)} class="fa fa-trash"></i>
+          </div>
+         
           </div>
         </div>
       ))}
