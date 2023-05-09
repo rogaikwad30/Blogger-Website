@@ -1,3 +1,5 @@
 {
-    "jwt_secret" : "iberioberuebrbb-9eb3-9bhe-r93he9-3hb9-e0qwj=-q"
+    "jwt_secret" : "iberioberuebrbb-9eb3-9bhe-r93he9-3hb9-e0qwj=-q",
+    "express_port" : 8000,
+    "mongo_url" : "mongodb+srv://testUser:testUser@cluster0.aaj01.mongodb.net/?retryWrites=true&w=majority"
 }

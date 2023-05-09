@@ -3,12 +3,13 @@ const cors = require('cors');
 const db = require('./services/mongodb');
 const router = require('./routes/routes');
 const bodyParser = require('body-parser');
+const config = require("./config.json");
 const app = express();
-const port = 8000;
+const port = config.express_port;
 
-const allowedOrigins = ['http://localhost:3000'];
+// const allowedOrigins = ['http://localhost:3000'];
 const corsOptions = {
-  origin: allowedOrigins,
+  origin: '*',
 };
 
 app.use(bodyParser.json());

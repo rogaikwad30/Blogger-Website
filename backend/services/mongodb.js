@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const config = require("../config.json");
 
 class Database {
   constructor() {
@@ -6,7 +7,7 @@ class Database {
   }
   _connect() {
     mongoose
-      .connect("mongodb://localhost:27017/CodeWits", {
+      .connect(config.mongo_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
