@@ -22,7 +22,7 @@ export class DeploymentService extends Construct {
         const distribution = new Distribution(this, 'CloudfrontDistribution', {
             defaultBehavior: {
                 origin: new S3Origin(hostingBucket),
-                viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL,
             },
             defaultRootObject: 'index.html',
             errorResponses: [
