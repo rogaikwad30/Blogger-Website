@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&display=swap');
+
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0,0,0,0.99), rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmxvZyUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.home-container h1 {
+  font-size: 4.4rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.name{
+  color: blue;
+}
+
+.home-container p {
+  font-size: 1.5rem;
+  font-weight: lighter;
+  color: #666;
+  margin-bottom: 3rem;
+  color: rgb(173, 173, 169);
+}
+
+.home-container a {
+  display: inline-block;
+  padding: 0.75rem 4rem;
+  background-color: rgb(241, 241, 241);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.home-container a:hover,
+.home-container a:focus {
+  background-color: rgb(251, 241, 241);
+}
